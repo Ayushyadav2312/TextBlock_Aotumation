@@ -19,3 +19,6 @@ huggingface-hub>=0.20
 
 # Utilities
 tqdm>=4.66
+
+#DataFrame Reading Utility
+openpyxl
