@@ -1,0 +1,21 @@
+# Core data handling
+pandas>=1.5
+numpy>=1.23
+
+# Environment variables
+python-dotenv>=1.0
+
+# PDF extraction
+pymupdf>=1.23
+pypdf>=4.0
+
+# LangChain (modern structure)
+langchain>=0.1.16
+langchain-core>=0.1.43
+langchain-huggingface>=0.0.3
+
+# Hugging Face API
+huggingface-hub>=0.20
+
+# Utilities
+tqdm>=4.66

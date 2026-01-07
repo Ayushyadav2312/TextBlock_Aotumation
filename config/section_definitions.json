@@ -1,0 +1,16 @@
+{
+  "overview": "Basic information about the company including its name, location, and general profile.",
+  "risk_factors": "The risks and challenges the company is currently facing that could impact its operations or financials.",
+  "risk_management": "The measures and strategies the company is taking to identify, monitor, and mitigate risks.",
+  "legal_risk": "Legal risks or potential liabilities the company may face in its operations.",
+  "strategy": "The company's strategic plans, actions, and initiatives aimed at achieving its future goals.",
+  "management": "Financial performance and operational results reported by the company, including key metrics.",
+  "auditor_report": "Independent auditor's report on the company's financial statements, providing an objective assessment.",
+  "esg_management_analysis_overview": "Structure of the board and management committees, their responsibilities, roles, and governance practices.",
+  "esg_business_strategy": "The company's environmental, social, and governance (ESG) initiatives and steps to address environmental challenges.",
+  "supplier_concentration": "Information on the company's suppliers and the sourcing of key raw materials.",
+  "company_outlook": "The company's future plans, projections, and expected business developments.",
+  "business_model": "Description of the company's core business model and how it generates revenue.",
+  "esg_management_acquisitions_and_divestures": "Details of the company's acquisitions, divestitures, mergers, or restructuring activities.",
+  "market_position": "The company's position in the market, including its competitors and relative market share."
+}

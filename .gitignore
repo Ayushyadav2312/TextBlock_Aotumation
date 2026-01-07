@@ -1,0 +1,4 @@
+.env
+data/raw_pdfs/*
+output/*
+venv
