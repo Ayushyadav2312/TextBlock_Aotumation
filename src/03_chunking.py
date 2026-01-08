@@ -2,16 +2,9 @@
 03_chunking.py
 
 Purpose:
-- Create semantically meaningful chunks from cleaned paragraphs
-- Control chunk size for embeddings / LLMs
-- Preserve page traceability
-- Avoid breaking logical paragraphs unnecessarily
-
-Input:
-- data/processed_chunks/*_cleaned_text.json
-
-Output:
-- data/processed_chunks/*_final_chunks.json
+- Create chunks strictly page-wise
+- One chunk belongs to ONE page only
+- Prevent cross-page text merging
 """
 
 import os
@@ -25,49 +18,56 @@ OUTPUT_DIR = "data/processed_chunks"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Chunk sizing (embedding friendly)
-MAX_CHARS = 900     # safe for most embedding models
-MIN_CHARS = 250     # avoid tiny chunks
+MAX_CHARS = 900
+MIN_CHARS = 250
 
 # ---------------------------------------- #
 
 
 def chunk_paragraphs(paragraphs):
     """
-    Combine adjacent paragraphs into semantic chunks.
+    Create chunks STRICTLY within the same page.
     """
     chunks = []
     buffer_text = ""
-    buffer_pages = set()
+    current_page = None
 
     for para in paragraphs:
         text = para["text"]
         page = para["page"]
 
-        if not buffer_text:
-            buffer_text = text
-            buffer_pages.add(page)
-            continue
-
-        # If adding paragraph stays within limit → merge
-        if len(buffer_text) + len(text) <= MAX_CHARS:
-            buffer_text += "\n\n" + text
-            buffer_pages.add(page)
-        else:
-            # Commit current chunk
+        # New page detected → flush buffer
+        if current_page is not None and page != current_page:
             if len(buffer_text) >= MIN_CHARS:
                 chunks.append({
-                    "pages": sorted(buffer_pages),
+                    "page": current_page,
                     "text": buffer_text
                 })
-
             buffer_text = text
-            buffer_pages = {page}
+            current_page = page
+            continue
 
-    # Add final chunk
+        # First paragraph
+        if current_page is None:
+            buffer_text = text
+            current_page = page
+            continue
+
+        # Same page → append if size allows
+        if len(buffer_text) + len(text) <= MAX_CHARS:
+            buffer_text += "\n\n" + text
+        else:
+            if len(buffer_text) >= MIN_CHARS:
+                chunks.append({
+                    "page": current_page,
+                    "text": buffer_text
+                })
+            buffer_text = text
+
+    # Final flush
     if buffer_text and len(buffer_text) >= MIN_CHARS:
         chunks.append({
-            "pages": sorted(buffer_pages),
+            "page": current_page,
             "text": buffer_text
         })
 
@@ -81,7 +81,7 @@ def process_file(input_path, output_path):
     if not paragraphs:
         return
 
-    # Sort by page order
+    # Ensure page order
     paragraphs.sort(key=lambda x: x["page"])
 
     chunks = chunk_paragraphs(paragraphs)
@@ -90,8 +90,8 @@ def process_file(input_path, output_path):
     for idx, chunk in enumerate(chunks):
         final_chunks.append({
             "chunk_id": f"CH_{idx}",
-            "pages": chunk["pages"],
-            "text": chunk["text"],
+            "page": chunk["page"],          # ✅ single page
+            "text": chunk["text"],    # ✅ consistent naming
             "char_length": len(chunk["text"])
         })
 
