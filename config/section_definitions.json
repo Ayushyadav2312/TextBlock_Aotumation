@@ -1,0 +1,31 @@
+{
+  "overview": "INCLUDE ONLY: factual introductory information identifying the company, such as company name,company headquarters, company geographic presence, and company general description. MUST NOT INCLUDE: strategy, risks, financial performance, outlook, governance, other overviews like members or individuals or ESG content.",
+
+  "business_model": "INCLUDE ONLY: structural explanation of how the company operates and generates revenue, including core activities, operating segments. MUST NOT INCLUDE: financial results, growth figures, strategy, market position, or future outlook.",
+
+  "market_position": "INCLUDE ONLY: statements describing the company’s competitive standing, industry position, relative scale, and key competitors. MUST NOT INCLUDE: strategy, future plans, financial performance, or operational results.",
+
+  "strategy": "INCLUDE ONLY: explicit statements of intended strategic direction, long-term objectives, transformation initiatives, and planned actions. MUST NOT INCLUDE: historical performance, financial results, or forward-looking projections.",
+
+  "company_outlook": "INCLUDE ONLY: forward-looking expectations and projections about future performance, growth, investments, or business conditions. MUST NOT INCLUDE: historical results, current performance, or strategic intent.",
+
+  "management": "INCLUDE ONLY: discussion and analysis of historical financial and operational performance for the reporting period, including revenues, profits, margins, cash flow, backlog, KPIs, and year-over-year comparisons. MUST NOT INCLUDE: strategy, future outlook, governance, ESG, or risk descriptions.",
+
+  "risk_factors": "INCLUDE ONLY: identification and description of risks that could negatively impact the company’s operations or financial condition. MUST NOT INCLUDE: mitigation actions, controls,legal risk intent or management processes.",
+
+  "risk_management": "INCLUDE ONLY: processes, frameworks, controls, and systems used to identify, assess, and mitigate risks,integrated risk management,financial risk management, if mitigation techniques are within the risk defination. MUST NOT INCLUDE: descriptions of the risks themselves only .",
+
+  "legal_risk": "INCLUDE ONLY: legal, regulatory, or compliance-related exposures, including litigation, investigations, regulatory proceedings, or legal uncertainties. MUST NOT INCLUDE: operational, financial, or strategic risks.",
+
+  "auditor_report": "INCLUDE ONLY: the independent auditor’s report in full, starting from the auditor’s opinion and continuing through scope, audit methodology, responsibilities, auditor firm name, signature, location, and date. MUST NOT INCLUDE: management commentary, notes to accounts, or financial analysis outside the auditor’s report.",
+
+  "supplier_concentration": "INCLUDE ONLY: information about supplier dependency, reliance on key suppliers, sourcing structure, and procurement concentration risks. MUST NOT INCLUDE: operational performance, strategy, or financial results.",
+
+  "esg_management_analysis_overview": "INCLUDE ONLY: governance-focused ESG information such as board structure, committees, governance frameworks, oversight mechanisms, and management responsibilities. MUST NOT INCLUDE: ESG initiatives, sustainability actions, individual director biographies, or strategic ESG goals.",
+
+  "esg_business_strategy": "INCLUDE ONLY: execution-focused ESG initiatives including environmental actions, sustainability programs, climate-related measures. MUST NOT INCLUDE: governance structure, board composition, or acquisition activity.",
+
+  "esg_management_acquisitions_and_divestures": "INCLUDE ONLY: explicit mentions of corporate acquisitions, disposals, divestitures, or restructuring events, focusing strictly on the names of companies or assets acquired or disposed. MUST NOT INCLUDE: strategic rationale, integration discussion, ESG narrative, financial performance, or future plans.",
+
+  "other": "INCLUDE ONLY: content that does not clearly and exclusively belong to any defined section. This includes mixed-topic paragraphs, summaries, boilerplate text, headers, footers, transitional language, and low-relevance narrative."
+}
