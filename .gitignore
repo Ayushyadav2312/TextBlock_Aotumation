@@ -1,5 +1,8 @@
 .env
 data/raw_pdfs/*
+data/extracted_text/*
+data/processed_chunks/*
+data/output/*
 output/*
 venv
 models/*
