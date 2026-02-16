@@ -1,15 +1,14 @@
 """
-04_section_classification.py (Base FinBERT - No Fine-Tuning)
+04_section_classification.py (Fine-Tuned FinBERT)
 
 Purpose:
-- Classify each semantic chunk using base FinBERT (sentiment)
+- Classify each semantic chunk into predefined report sections
+- Use fine-tuned FinBERT model
 - Preserve page traceability
-- Output structured JSON
 """
 
 import os
 import json
-import re
 import torch
 import pandas as pd
 from tqdm import tqdm
@@ -26,7 +25,7 @@ PDF_BASE_NAME = "acs_group"
 CHUNKS_FILE = f"{INPUT_DIR}/{PDF_BASE_NAME}_final_chunks.json"
 OUTPUT_FILE = f"{OUTPUT_DIR}/{PDF_BASE_NAME}_classified_chunks.json"
 
-MODEL_PATH = "models/ProsusAIfinbert"   # ← Fix this path
+MODEL_PATH = "models/finbert_section_model"
 
 MAX_LENGTH = 256
 BATCH_SIZE = 16
@@ -35,9 +34,9 @@ BATCH_SIZE = 16
 # LOAD MODEL
 # -------------------------------
 if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"FinBERT model not found at {MODEL_PATH}")
+    raise FileNotFoundError("Model not found. Run train_from_excel.py first.")
 
-print("Loading base FinBERT model...")
+print("Loading fine-tuned FinBERT model...")
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
@@ -46,8 +45,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
-# Get built-in label mapping from model
-id2label = model.config.id2label
+# Load label mapping
+with open(os.path.join(MODEL_PATH, "label_mapping.json"), "r") as f:
+    label_map = json.load(f)
 
 # -------------------------------
 # LOAD CHUNKS
@@ -78,13 +78,12 @@ def classify_batch(texts):
     with torch.no_grad():
         outputs = model(**inputs)
 
-    probs = torch.softmax(outputs.logits, dim=1)
-    preds = torch.argmax(probs, dim=1)
+    preds = torch.argmax(outputs.logits, dim=1)
 
     results = []
 
     for i in range(len(texts)):
-        label = id2label[preds[i].item()]
+        label = label_map[str(preds[i].item())]
         results.append(label)
 
     return results
@@ -92,7 +91,7 @@ def classify_batch(texts):
 # -------------------------------
 # RUN CLASSIFICATION
 # -------------------------------
-print("Starting FinBERT classification...")
+print("Starting section classification...")
 
 sections = []
 
